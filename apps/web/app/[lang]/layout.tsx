@@ -4,6 +4,7 @@ import "../globals.css";
 import { SITE } from "@/lib/site";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { Analytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Locale } from "@/lib/dictionaries";
 
 // H1 hero headline only - weights 600/700
@@ -116,6 +117,7 @@ export default async function RootLayout(
         />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   );
