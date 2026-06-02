@@ -56,7 +56,9 @@ export function Preloader() {
             className="inline-block"
             style={{
               color: ch === "X" ? "var(--color-harvest-amber)" : "var(--color-rabi-dust)",
-              animation: "pv-word-up 0.4s both",
+              animationName: "pv-word-up",
+              animationDuration: "0.4s",
+              animationFillMode: "both",
               animationDelay: `${0.1 + i * 0.05}s`,
             }}
           >

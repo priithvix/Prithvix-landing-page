@@ -77,16 +77,17 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
   };
 
   return (
-    <nav
-      className="transition-colors duration-300"
-      style={{
-        height: "var(--nav-h, 68px)",
-        background: scrolled ? "rgba(245,240,230,0.94)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "0.5px solid var(--color-sand)" : "0.5px solid transparent",
-      }}
-    >
-      <div className="container-x flex h-full items-center justify-between">
+    <>
+      <nav
+        className="transition-colors duration-300"
+        style={{
+          height: "var(--nav-h, 68px)",
+          background: scrolled ? "rgba(245,240,230,0.94)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "0.5px solid var(--color-sand)" : "0.5px solid transparent",
+        }}
+      >
+        <div className="container-x flex h-full items-center justify-between">
         {/* Logo */}
         <button
           onClick={() => {
@@ -169,7 +170,8 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
             <Menu size={22} />
           </button>
         </div>
-      </div>
+        </div>
+      </nav>
 
       {/* Mobile drawer */}
       <div
@@ -196,7 +198,9 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
               onClick={() => go(l.href)}
               className="text-left font-heading text-[28px] font-bold text-rabi-dust"
               style={{
-                animation: menuOpen ? "pv-word-up 0.4s both" : "none",
+                animationName: menuOpen ? "pv-word-up" : "none",
+                animationDuration: "0.4s",
+                animationFillMode: "both",
                 animationDelay: `${i * 0.08}s`,
               }}
             >
@@ -208,7 +212,9 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
           <div 
             className="mt-4 flex flex-wrap items-center gap-2"
             style={{
-              animation: menuOpen ? "pv-word-up 0.4s both" : "none",
+              animationName: menuOpen ? "pv-word-up" : "none",
+              animationDuration: "0.4s",
+              animationFillMode: "both",
               animationDelay: `${LINKS.length * 0.08}s`,
             }}
           >
@@ -231,6 +237,6 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

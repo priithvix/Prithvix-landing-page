@@ -108,7 +108,9 @@ export function Hero() {
                           w.color === "amber"
                             ? "var(--color-harvest-amber)"
                             : "var(--color-rabi-dust)",
-                        animation: "pv-word-up 0.5s both",
+                        animationName: "pv-word-up",
+                        animationDuration: "0.5s",
+                        animationFillMode: "both",
                         animationDelay: `${delay}s`,
                       }}
                     >

@@ -21,6 +21,12 @@ export function AnnouncementBar() {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    try {
+      const dismissedUntil = localStorage.getItem(DISMISS_KEY);
+      if (dismissedUntil && Date.now() < parseInt(dismissedUntil, 10)) {
+        return;
+      }
+    } catch {}
     setVisible(true);
   }, []);
 
@@ -34,6 +40,10 @@ export function AnnouncementBar() {
 
   const dismiss = () => {
     setVisible(false);
+    try {
+      const until = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem(DISMISS_KEY, until.toString());
+    } catch {}
   };
 
   return (
