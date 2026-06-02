@@ -8,7 +8,13 @@ import { CountUp } from "@/components/ui/CountUp";
 import { scrollToAnchor } from "@/lib/scroll";
 import { track } from "@/components/Analytics";
 import RotatingText from "@/components/ui/RotatingText";
-import { Globe3D, GlobeMarker } from "@/components/ui/3d-globe";
+import type { GlobeMarker } from "@/components/ui/3d-globe";
+import dynamic from "next/dynamic";
+import { useMediaQuery } from "@/hooks/use-media-query";
+
+const Globe3D = dynamic(() => import("@/components/ui/3d-globe").then((mod) => mod.Globe3D), {
+  ssr: false,
+});
 
 const INDIAN_MARKERS: GlobeMarker[] = [
   { lat: 28.6139, lng: 77.209, label: "New Delhi" },
@@ -34,6 +40,7 @@ const STATS = [
 
 export function Hero() {
   const [showScroll, setShowScroll] = useState(true);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 100);
@@ -191,30 +198,32 @@ export function Hero() {
       </div>
 
       {/* 3D Globe - Desktop Only (Bottom Right) */}
-      <div 
-        className="hidden lg:block absolute -right-64 -bottom-62 z-0 size-[900px] pointer-events-auto"
-        style={{
-          maskImage: "radial-gradient(circle at center, black 45%, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(circle at center, black 45%, transparent 70%)",
-        }}
-      >
-        <Globe3D
-          className="h-full w-full opacity-80"
-          markers={INDIAN_MARKERS}
-          config={{
-            globeColor: "#1b3a2d",
-            atmosphereColor: "#0e1b12",
-            atmosphereIntensity: 0.5,
-            bumpScale: 2,
-            autoRotateSpeed: 0.2,
-            markerSize: 0.05,
-            showAtmosphere: false,
-            initialRotation: { x: 0, y: 0 },
-            ambientIntensity: 0.1,
-            pointLightIntensity: 3.5,
+      {isDesktop && (
+        <div 
+          className="hidden lg:block absolute -right-64 -bottom-62 z-0 size-[900px] pointer-events-auto"
+          style={{
+            maskImage: "radial-gradient(circle at center, black 30%, transparent 58%)",
+            WebkitMaskImage: "radial-gradient(circle at center, black 30%, transparent 58%)",
           }}
-        />
-      </div>
+        >
+          <Globe3D
+            className="h-full w-full opacity-80"
+            markers={INDIAN_MARKERS}
+            config={{
+              globeColor: "#1b3a2d",
+              atmosphereColor: "#0e1b12",
+              atmosphereIntensity: 0.5,
+              bumpScale: 2,
+              autoRotateSpeed: 0.1,
+              markerSize: 0.05,
+              showAtmosphere: false,
+              initialRotation: { x: 0, y: 0 },
+              ambientIntensity: 0.1,
+              pointLightIntensity: 3.5,
+            }}
+          />
+        </div>
+      )}
 
       {/* Scroll indicator */}
       <button

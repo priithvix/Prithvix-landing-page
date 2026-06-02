@@ -3,6 +3,8 @@ import React, { useRef, useMemo, useState, useCallback, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { MapPin } from "lucide-react";
+
 function cn(...classes: (string | undefined | null | false)[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -119,6 +121,7 @@ interface MarkerProps {
   defaultSize: number;
   onClick?: (marker: GlobeMarker) => void;
   onHover?: (marker: GlobeMarker | null) => void;
+  isSelected?: boolean;
 }
 
 function Marker({
@@ -127,11 +130,12 @@ function Marker({
   defaultSize,
   onClick,
   onHover,
+  isSelected = false,
 }: MarkerProps) {
   const [hovered, setHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const groupRef = useRef<THREE.Group>(null);
-  const imageGroupRef = useRef<THREE.Group>(null);
+  const markerRef = useRef<THREE.Group>(null);
   const { camera } = useThree();
 
   // Surface position (where the line starts)
@@ -139,20 +143,20 @@ function Marker({
     return latLngToVector3(marker.lat, marker.lng, radius * 1.001);
   }, [marker.lat, marker.lng, radius]);
 
-  // Top of the line (where the image is) - positioned further out to prevent going inside globe
+  // Top of the line (where the marker head is)
   const topPosition = useMemo(() => {
-    return latLngToVector3(marker.lat, marker.lng, radius * 1.18);
+    return latLngToVector3(marker.lat, marker.lng, radius * 1.08);
   }, [marker.lat, marker.lng, radius]);
 
   const lineHeight = topPosition.distanceTo(surfacePosition);
 
   // Check if marker is facing the camera
   useFrame(() => {
-    if (!imageGroupRef.current) return;
+    if (!markerRef.current) return;
 
-    // Get the world position of the image (the positioned element)
+    // Get the world position of the marker head
     const worldPos = new THREE.Vector3();
-    imageGroupRef.current.getWorldPosition(worldPos);
+    markerRef.current.getWorldPosition(worldPos);
 
     // Direction from globe center (0,0,0) to marker
     const markerDirection = worldPos.clone().normalize();
@@ -163,8 +167,8 @@ function Marker({
     // Dot product: positive means facing camera, negative means behind
     const dot = markerDirection.dot(cameraDirection);
 
-    // Show marker only if it's facing the camera (stricter threshold)
-    setIsVisible(dot > 0.1);
+    // Show marker only if it's facing the camera
+    setIsVisible(dot > 0.15);
   });
 
   const handlePointerEnter = useCallback(() => {
@@ -177,7 +181,8 @@ function Marker({
     onHover?.(null);
   }, [onHover]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((e: any) => {
+    e.stopPropagation();
     onClick?.(marker);
   }, [marker, onClick]);
 
@@ -203,25 +208,38 @@ function Marker({
     >
       {/* Pin line from surface to top - properly oriented */}
       <mesh position={lineCenter} quaternion={lineQuaternion}>
-        <cylinderGeometry args={[0.003, 0.003, lineHeight, 8]} />
+        <cylinderGeometry args={[isSelected ? 0.005 : 0.003, isSelected ? 0.005 : 0.003, lineHeight, 8]} />
         <meshBasicMaterial
-          color={hovered ? "#ffffff" : "#94a3b8"}
+          color={isSelected ? "#10b981" : (hovered ? "#ffffff" : "#94a3b8")}
           transparent
-          opacity={hovered ? 0.9 : 0.6}
+          opacity={isSelected ? 1.0 : (hovered ? 0.9 : 0.6)}
         />
       </mesh>
 
-      {/* Circular pin head (only if NO src provided) */}
-      {!marker.src && (
-        <mesh position={topPosition}>
-          <sphereGeometry args={[0.006, 32, 32]} />
-          <meshBasicMaterial color={hovered ? (marker.color || "#ff4444") : (marker.color || "#ff0000")} />
-        </mesh>
-      )}
+      {/* Group at topPosition to track world position & render elements */}
+      <group ref={markerRef} position={topPosition}>
+        {/* Pulsing selected halo */}
+        {!marker.src && isSelected && (
+          <mesh>
+            <sphereGeometry args={[0.035, 32, 32]} />
+            <meshBasicMaterial
+              color="#10b981"
+              transparent
+              opacity={0.25}
+            />
+          </mesh>
+        )}
 
-      {/* Circular image at the top (only if src provided) */}
-      {marker.src && (
-        <group ref={imageGroupRef} position={topPosition}>
+        {/* Circular pin head (only if NO src provided) */}
+        {!marker.src && (
+          <mesh>
+            <sphereGeometry args={[isSelected ? 0.022 : 0.012, 32, 32]} />
+            <meshBasicMaterial color={isSelected ? "#10b981" : (hovered ? (marker.color || "#ff4444") : (marker.color || "#ff0000"))} />
+          </mesh>
+        )}
+
+        {/* Circular image at the top (only if src provided) */}
+        {marker.src && (
           <Html
             transform
             center
@@ -239,8 +257,8 @@ function Marker({
                 hovered && "scale-125 shadow-xl ring-1 ring-white/50"
               )}
               style={{
-                width: "8px",
-                height: "8px",
+                width: "12px",
+                height: "12px",
               }}
             >
               <img
@@ -251,8 +269,34 @@ function Marker({
               />
             </div>
           </Html>
-        </group>
-      )}
+        )}
+
+        {/* Beautiful Glassmorphic Tooltip for Selected Marker */}
+        {isSelected && (
+          <Html
+            center
+            style={{
+              pointerEvents: isVisible ? "auto" : "none",
+              opacity: isVisible ? 1 : 0,
+              transition: "opacity 0.15s ease-in-out",
+              zIndex: 50,
+            }}
+          >
+            <div className="pv-tooltip relative flex flex-col items-center select-none" style={{ transform: 'translateY(-12px)' }}>
+              {/* Main neat white container */}
+              <div className="flex items-center gap-1.5 whitespace-nowrap rounded-[4px] bg-white px-2 py-1 shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
+                <MapPin size={10} style={{ color: "var(--color-harvest-amber)" }} className="shrink-0" />
+                <span className="font-heading text-[10px] font-bold tracking-wide uppercase leading-none" style={{ color: "var(--color-harvest-amber)" }}>
+                  {marker.label}
+                </span>
+              </div>
+
+              {/* Downward pointing triangle/arrow */}
+              <div className="h-1.5 w-1.5 -mt-[3px] rotate-45 bg-white shadow-[1px_1px_1px_rgba(0,0,0,0.03)]" />
+            </div>
+          </Html>
+        )}
+      </group>
     </group>
   );
 }
@@ -264,6 +308,8 @@ function Marker({
 interface RotatingGlobeProps {
   config: Required<Globe3DConfig>;
   markers: GlobeMarker[];
+  selectedMarker: GlobeMarker | null;
+  onGlobeClick?: () => void;
   onMarkerClick?: (marker: GlobeMarker) => void;
   onMarkerHover?: (marker: GlobeMarker | null) => void;
 }
@@ -271,6 +317,8 @@ interface RotatingGlobeProps {
 function RotatingGlobe({
   config,
   markers,
+  selectedMarker,
+  onGlobeClick,
   onMarkerClick,
   onMarkerHover,
 }: RotatingGlobeProps) {
@@ -305,7 +353,13 @@ function RotatingGlobe({
   return (
     <group ref={groupRef}>
       {/* Main globe mesh with Earth texture */}
-      <mesh geometry={geometry}>
+      <mesh 
+        geometry={geometry}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          onGlobeClick?.();
+        }}
+      >
         <meshStandardMaterial
           map={earthTexture}
           bumpMap={bumpTexture}
@@ -336,6 +390,7 @@ function RotatingGlobe({
           defaultSize={config.markerSize}
           onClick={onMarkerClick}
           onHover={onMarkerHover}
+          isSelected={selectedMarker?.label === marker.label}
         />
       ))}
     </group>
@@ -412,14 +467,140 @@ interface SceneProps {
 
 function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
   const { camera } = useThree();
+  const [selectedMarker, setSelectedMarker] = useState<GlobeMarker | null>(null);
+
+  const controlsRef = useRef<any>(null);
+  const timeoutRef = useRef<any>(null);
+  const preZoomPosRef = useRef<THREE.Vector3 | null>(null);
+
+  const [targetCameraPos, setTargetCameraPos] = useState<THREE.Vector3 | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isZoomingOut, setIsZoomingOut] = useState(false);
+  const [desiredDistance, setDesiredDistance] = useState(config.radius * 2.6);
 
   // Set initial camera position (pulled back to accommodate markers)
   React.useEffect(() => {
-    // Start camera to the right of India (Lng 130) so India appears on the left side initially
-    const startPos = latLngToVector3(22, 130, config.radius * 3.5);
+    // Start camera slightly to the right of India so it is comfortably centered-left
+    const startPos = latLngToVector3(22, 105, config.radius * 2.6);
     camera.position.copy(startPos);
     camera.lookAt(0, 0, 0);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [camera, config.radius]);
+
+  const handleMarkerClick = useCallback(
+    (marker: GlobeMarker) => {
+      setSelectedMarker((prev) => {
+        if (prev?.label === marker.label) {
+          // Deselecting: return to pre-zoom position
+          if (preZoomPosRef.current) {
+            setTargetCameraPos(preZoomPosRef.current.clone());
+            setIsZoomingOut(true);
+          } else {
+            setTargetCameraPos(null);
+          }
+          setIsAnimating(false);
+          setDesiredDistance(config.radius * 2.6);
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          return null;
+        } else {
+          // Selecting: record current camera position before animation starts ONLY if not currently zoomed in
+          if (!prev) {
+            preZoomPosRef.current = camera.position.clone();
+          }
+
+          // Calculate the target camera position (zoomed in to 2.2x the radius)
+          const targetDir = latLngToVector3(marker.lat, marker.lng, config.radius).normalize();
+          const targetPos = targetDir.clone().multiplyScalar(config.radius * 2.2);
+          setTargetCameraPos(targetPos);
+          setIsAnimating(true);
+          setIsZoomingOut(false);
+          setDesiredDistance(config.radius * 2.2);
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          return marker;
+        }
+      });
+      onMarkerClick?.(marker);
+    },
+    [onMarkerClick, config.radius, camera],
+  );
+
+  const handleGlobeClick = useCallback(() => {
+    setSelectedMarker((prev) => {
+      if (prev) {
+        if (preZoomPosRef.current) {
+          setTargetCameraPos(preZoomPosRef.current.clone());
+          setIsZoomingOut(true);
+        } else {
+          setTargetCameraPos(null);
+        }
+        setIsAnimating(false);
+        setDesiredDistance(config.radius * 2.6);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      }
+      return null;
+    });
+  }, [config.radius]);
+
+  // Smoothly move the camera and manage autoRotate reset timer
+  useFrame((state) => {
+    // 1. Lerp camera distance at all times to keep it smooth (zoom in/out transitions)
+    const currentDist = state.camera.position.length();
+    const targetDist = desiredDistance;
+    if (Math.abs(currentDist - targetDist) > 0.01) {
+      const nextDist = THREE.MathUtils.lerp(currentDist, targetDist, 0.05);
+      state.camera.position.normalize().multiplyScalar(nextDist);
+    }
+
+    // 2. Focus on selected marker or return to pre-zoom position
+    if (targetCameraPos) {
+      // Smoothly interpolate the camera's position to target
+      state.camera.position.lerp(targetCameraPos, 0.05);
+      state.camera.lookAt(0, 0, 0);
+
+      // Force update of OrbitControls to prevent override jitter
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+
+      const dist = state.camera.position.distanceTo(targetCameraPos);
+
+      if (isZoomingOut) {
+        // Zooming out has completed, resume auto-rotation
+        if (dist < 0.02) {
+          setTargetCameraPos(null);
+          setIsZoomingOut(false);
+          preZoomPosRef.current = null;
+        }
+      } else if (dist < 0.02 && isAnimating) {
+        setIsAnimating(false);
+
+        // Start a 3.5 second hold to let the user view the zoomed location before continuing revolution
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          setSelectedMarker((prev) => {
+            if (prev) {
+              if (preZoomPosRef.current) {
+                setTargetCameraPos(preZoomPosRef.current.clone());
+                setIsZoomingOut(true);
+              } else {
+                setTargetCameraPos(null);
+              }
+              setDesiredDistance(config.radius * 2.6); // zoom back out!
+            }
+            return null;
+          });
+        }, 3500);
+      }
+    } else {
+      // Just keep OrbitControls updated while auto-rotating
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+    }
+  });
 
   return (
     <>
@@ -440,7 +621,9 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
       <RotatingGlobe
         config={config}
         markers={markers}
-        onMarkerClick={onMarkerClick}
+        selectedMarker={selectedMarker}
+        onGlobeClick={handleGlobeClick}
+        onMarkerClick={handleMarkerClick}
         onMarkerHover={onMarkerHover}
       />
 
@@ -456,6 +639,7 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
 
       {/* Controls */}
       <OrbitControls
+        ref={controlsRef}
         makeDefault
         enablePan={false}
         enableZoom={config.enableZoom}
@@ -463,7 +647,7 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
         minDistance={config.minDistance}
         maxDistance={config.maxDistance}
         rotateSpeed={0.4}
-        autoRotate={config.autoRotateSpeed > 0}
+        autoRotate={config.autoRotateSpeed > 0 && !selectedMarker && !isZoomingOut}
         autoRotateSpeed={config.autoRotateSpeed}
         enableDamping
         dampingFactor={0.1}
@@ -505,7 +689,7 @@ const defaultConfig: Required<Globe3DConfig> = {
   autoRotateSpeed: 0.3,
   enableZoom: false,
   enablePan: false,
-  minDistance: 5,
+  minDistance: 3.5,
   maxDistance: 15,
   initialRotation: { x: 0, y: 0 },
   markerSize: 0.06,

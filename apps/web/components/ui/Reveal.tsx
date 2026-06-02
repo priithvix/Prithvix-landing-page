@@ -18,8 +18,8 @@ export function Reveal({
   className?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
-} & Record<string, unknown>) {
-  const Tag = as ?? "div";
+} & { [key: string]: any }) {
+  const Tag = (as ?? "div") as any;
   return (
     <Tag
       data-reveal=""

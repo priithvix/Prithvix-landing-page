@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 
 import './RotatingText.css';
 
-function cn(...classes) {
+function cn(...classes: (string | undefined | null | false)[]) {
   return classes.filter(Boolean).join(' ');
 }
 

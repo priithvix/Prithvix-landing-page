@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname, "..", ".."),
   },
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   allowedDevOrigins: ["192.168.29.8", "10.21.49.92", "localhost", "192.168.1.115"],
 };
 
