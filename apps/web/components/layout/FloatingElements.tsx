@@ -63,8 +63,9 @@ export function FloatingElements() {
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
         onClick={() => track("button_click", { id: "whatsapp_fab" })}
-        className="group fixed right-6 z-[90] grid h-[52px] w-[52px] place-items-center rounded-full bg-[#25D366] shadow-[var(--shadow-hover)] transition-transform hover:-translate-y-0.5"
-        style={{ bottom: showStickyBar ? "148px" : "84px", transition: "bottom 0.3s ease" }}
+        className={`group fixed right-6 z-[90] grid h-[52px] w-[52px] place-items-center rounded-full bg-[#25D366] shadow-[var(--shadow-hover)] transition-all duration-300 hover:-translate-y-0.5 ${
+          showStickyBar ? "bottom-[148px] md:bottom-[84px]" : "bottom-[84px]"
+        }`}
       >
         <WhatsAppIcon />
         <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-soil-deep px-3 py-1.5 font-body text-[12px] text-rabi-dust opacity-0 transition-opacity group-hover:opacity-100 md:block">
@@ -79,9 +80,10 @@ export function FloatingElements() {
           track("button_click", { id: "back_to_top" });
         }}
         aria-label="Back to top"
-        className="fixed right-7 z-[89] grid h-11 w-11 place-items-center rounded-full border-[0.5px] border-[rgba(245,240,230,0.15)] bg-[rgba(14,27,18,0.7)] text-[rgba(245,240,230,0.7)] backdrop-blur-sm transition-opacity duration-300"
+        className={`fixed right-7 z-[89] grid h-11 w-11 place-items-center rounded-full border-[0.5px] border-[rgba(245,240,230,0.15)] bg-[rgba(14,27,18,0.7)] text-[rgba(245,240,230,0.7)] backdrop-blur-sm transition-all duration-300 ${
+          showStickyBar ? "bottom-[88px] md:bottom-[24px]" : "bottom-[24px]"
+        }`}
         style={{
-          bottom: showStickyBar ? "88px" : "24px",
           opacity: showTop ? 1 : 0,
           pointerEvents: showTop ? "auto" : "none",
         }}
