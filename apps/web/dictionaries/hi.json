@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "services": "सेवाएं",
+    "aiAgent": "एआई एजेंट",
+    "about": "हमारे बारे में",
+    "contact": "संपर्क करें",
+    "registerInterest": "रुचि दर्ज करें"
+  },
+  "footer": {
+    "empowering": "प्रौद्योगिकी के साथ भारत के कृषि पारिस्थितिकी तंत्र को सशक्त बनाना। किसानों, डीलरों और संपूर्ण कृषि मूल्य श्रृंखला के लिए निर्मित।",
+    "services": {
+      "heading": "सेवाएं",
+      "machineryRental": "मशीनरी रेंटल",
+      "labourServices": "श्रम सेवाएं",
+      "dealerErp": "डीलर ईआरपी और सीआरएम",
+      "onlineStore": "ऑनलाइन स्टोर",
+      "aiAgent": "एआई एजेंट"
+    },
+    "company": {
+      "heading": "कंपनी",
+      "aboutUs": "हमारे बारे में",
+      "ourMission": "हमारा मिशन",
+      "careers": "करियर",
+      "blog": "ब्लॉग",
+      "press": "प्रेस"
+    },
+    "contact": {
+      "heading": "संपर्क करें",
+      "whatsappUs": "हमें व्हाट्सएप करें",
+      "privacyPolicy": "गोपनीयता नीति",
+      "termsOfUse": "उपयोग की शर्तें"
+    },
+    "copyright": "© {year} PrithviX. सर्वाधिकार सुरक्षित। भारत के किसानों के लिए ❤️ के साथ निर्मित।"
+  }
+}

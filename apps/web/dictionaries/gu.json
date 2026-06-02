@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "services": "સેવાઓ",
+    "aiAgent": "એઆઈ એજન્ટ",
+    "about": "અમારા વિશે",
+    "contact": "સંપર્ક કરો",
+    "registerInterest": "રસ નોંધાવો"
+  },
+  "footer": {
+    "empowering": "ટેક્નોલોજી દ્વારા ભારતના કૃષિ ઇકોસિસ્ટમને સશક્ત બનાવવું. ખેડૂતો, ડીલરો અને સમગ્ર કૃષિ મૂલ્ય શૃંખલા માટે રચાયેલ.",
+    "services": {
+      "heading": "સેવાઓ",
+      "machineryRental": "મશીનરી ભાડે",
+      "labourServices": "શ્રમ સેવાઓ",
+      "dealerErp": "ડીલર ઇઆરપી અને સીઆરએમ",
+      "onlineStore": "ઓનલાઈન સ્ટોર",
+      "aiAgent": "એઆઈ એજન્ટ"
+    },
+    "company": {
+      "heading": "કંપની",
+      "aboutUs": "અમારા વિશે",
+      "ourMission": "અમારું મિશન",
+      "careers": "કરિયર",
+      "blog": "બ્લોગ",
+      "press": "પ્રેસ"
+    },
+    "contact": {
+      "heading": "સંપર્ક કરો",
+      "whatsappUs": "અમને વોટ્સએપ કરો",
+      "privacyPolicy": "ગોપનીયતા નીતિ",
+      "termsOfUse": "ઉપયોગની શરતો"
+    },
+    "copyright": "© {year} PrithviX. સર્વાધિકાર સુરક્ષિત. ભારતના ખેડૂતો માટે ❤️ સાથે બનાવેલ."
+  }
+}

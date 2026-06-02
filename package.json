@@ -1,0 +1,20 @@
+{
+  "name": "prithvix",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PrithviX — agri-tech platform. Phase 1: marketing website. Phase 2: dashboard ERP.",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "images": "node scripts/convert-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.2"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

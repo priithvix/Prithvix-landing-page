@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "services": "Services",
+    "aiAgent": "AI Agent",
+    "about": "About",
+    "contact": "Contact",
+    "registerInterest": "Register Interest"
+  },
+  "footer": {
+    "empowering": "Empowering India's agricultural ecosystem with technology. Built for farmers, dealers, and the entire agri value chain.",
+    "services": {
+      "heading": "Services",
+      "machineryRental": "Machinery Rental",
+      "labourServices": "Labour Services",
+      "dealerErp": "Dealer ERP & CRM",
+      "onlineStore": "Online Store",
+      "aiAgent": "AI Agent"
+    },
+    "company": {
+      "heading": "Company",
+      "aboutUs": "About Us",
+      "ourMission": "Our Mission",
+      "careers": "Careers",
+      "blog": "Blog",
+      "press": "Press"
+    },
+    "contact": {
+      "heading": "Contact",
+      "whatsappUs": "WhatsApp Us",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use"
+    },
+    "copyright": "© {year} PrithviX. All rights reserved. Made with ❤️ for Bharat's farmers."
+  }
+}
