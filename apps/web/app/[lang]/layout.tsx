@@ -39,39 +39,54 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: SITE.title,
-  description: SITE.description,
-  keywords: [...SITE.keywords],
-  authors: [{ name: SITE.name }],
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
-  openGraph: {
-    type: "website",
-    locale: SITE.locale,
-    url: SITE.url,
-    title: "PrithviX - Machinery Rental, Labour & ERP for Indian Farmers",
-    description:
-      "Rent farm equipment, hire labour, manage dealer credit - one platform for India's agri ecosystem.",
-    siteName: SITE.name,
-    images: [
-      {
-        url: SITE.ogImage,
-        width: 1200,
-        height: 630,
-        alt: "Sunrise over golden wheat fields in rural India",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "PrithviX - Agriculture Tech Platform",
-    description:
-      "Rent equipment, hire labour, run your agri business digitally.",
-    images: [SITE.ogImage],
-  },
-};
+export async function generateMetadata(
+  props: { params: Promise<{ lang: string }> }
+): Promise<Metadata> {
+  const params = await props.params;
+  const { lang } = params;
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: SITE.title,
+    description: SITE.description,
+    keywords: [...SITE.keywords],
+    authors: [{ name: SITE.name }],
+    alternates: { 
+      canonical: `/${lang}`,
+      languages: {
+        'en': '/en',
+        'hi': '/hi',
+        'gu': '/gu',
+        'pa': '/pa',
+      }
+    },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      locale: lang === 'en' ? 'en_IN' : `${lang}_IN`,
+      url: `${SITE.url}/${lang}`,
+      title: "PrithviX - Machinery Rental, Labour & ERP for Indian Farmers",
+      description:
+        "Rent farm equipment, hire labour, manage dealer credit - one platform for India's agri ecosystem.",
+      siteName: SITE.name,
+      images: [
+        {
+          url: SITE.ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Sunrise over golden wheat fields in rural India",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "PrithviX - Agriculture Tech Platform",
+      description:
+        "Rent equipment, hire labour, run your agri business digitally.",
+      images: [SITE.ogImage],
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: SITE.themeColor,
