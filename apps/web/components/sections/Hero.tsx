@@ -16,16 +16,7 @@ const Globe3D = dynamic(() => import("@/components/ui/3d-globe").then((mod) => m
   ssr: false,
 });
 
-const INDIAN_MARKERS: GlobeMarker[] = [
-  { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-  { lat: 19.0760, lng: 72.8777, label: "Mumbai" },
-  { lat: 12.9716, lng: 77.5946, label: "Bangalore" },
-  { lat: 17.3850, lng: 78.4867, label: "Hyderabad" },
-  { lat: 13.0827, lng: 80.2707, label: "Chennai" },
-  { lat: 22.5726, lng: 88.3639, label: "Kolkata" },
-  { lat: 23.0225, lng: 72.5714, label: "Ahmedabad" },
-  { lat: 18.5204, lng: 73.8567, label: "Pune" },
-];
+const INDIAN_MARKERS: GlobeMarker[] = [];
 
 
 

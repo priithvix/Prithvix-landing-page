@@ -320,8 +320,10 @@
       "namePlaceholder": "Your name",
       "phone": "Mobile Number",
       "phonePlaceholder": "+91 XXXXX XXXXX",
-      "district": "District / City",
+      "district": "Nearest City / District",
       "districtPlaceholder": "e.g. Ahmedabad, Surat, Nashik",
+      "village": "Village / Taluka (Optional)",
+      "villagePlaceholder": "e.g. Paldi",
       "role": "I am a...",
       "roleOptions": [
         "Farmer",

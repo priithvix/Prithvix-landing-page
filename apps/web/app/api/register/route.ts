@@ -13,6 +13,7 @@ type Body = {
   name?: string;
   phone?: string;
   district?: string;
+  village?: string;
   role?: string;
   service?: string;
 };
@@ -27,6 +28,7 @@ export async function POST(req: Request) {
 
   const name = (body.name ?? "").trim();
   const district = (body.district ?? "").trim();
+  const village = (body.village ?? "").trim();
   const role = (body.role ?? "").trim();
   const service = (body.service ?? "").trim();
   const phoneDigits = (body.phone ?? "").replace(/\D/g, "").replace(/^91/, "");
@@ -58,6 +60,7 @@ export async function POST(req: Request) {
       name,
       phone: phoneDigits,
       district,
+      village,
       role,
       service,
     });
@@ -68,6 +71,7 @@ export async function POST(req: Request) {
     name,
     phone: phoneDigits,
     district,
+    village,
     role,
     service_interest: service,
   });

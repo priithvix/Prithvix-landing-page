@@ -320,8 +320,10 @@
       "namePlaceholder": "તમારું નામ",
       "phone": "મોબાઈલ નંબર",
       "phonePlaceholder": "+91 XXXXX XXXXX",
-      "district": "જિલ્લો / શહેર",
+      "district": "નજીકનું શહેર / જિલ્લો",
       "districtPlaceholder": "દા.ત. અમદાવાદ, સુરત, નવસારી",
+      "village": "ગામ / તાલુકો (વૈકલ્પિક)",
+      "villagePlaceholder": "દા.ત. પાલડી",
       "role": "હું એક...",
       "roleOptions": [
         "ખેડૂત",

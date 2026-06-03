@@ -320,8 +320,10 @@
       "namePlaceholder": "ਤੁਹਾਡਾ ਨਾਮ",
       "phone": "ਮੋਬਾਈਲ ਨੰਬਰ",
       "phonePlaceholder": "+91 XXXXX XXXXX",
-      "district": "ਜ਼ਿਲ੍ਹਾ / ਸ਼ਹਿਰ",
+      "district": "ਨਜ਼ਦੀਕੀ ਸ਼ਹਿਰ / ਜ਼ਿਲ੍ਹਾ",
       "districtPlaceholder": "ਉਦਾਹਰਣ ਵਜੋਂ ਅਹਿਮਦਾਬਾਦ, ਸੂਰਤ, ਨਾਸਿਕ",
+      "village": "ਪਿੰਡ / ਤਾਲੁਕਾ (ਵਿਕਲਪਿਕ)",
+      "villagePlaceholder": "ਉਦਾ. ਪਾਲਡੀ",
       "role": "ਮੈਂ ਇੱਕ...",
       "roleOptions": [
         "ਕਿਸਾਨ",

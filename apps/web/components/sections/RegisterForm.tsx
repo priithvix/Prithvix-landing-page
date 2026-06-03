@@ -6,8 +6,7 @@ import { SectionPill } from "@/components/ui/SectionPill";
 import { Reveal } from "@/components/ui/Reveal";
 import { waLink } from "@/lib/site";
 import { track } from "@/components/Analytics";
-
-
+import cities from "@/lib/cities.json";
 
 const STORAGE_KEY = "pv_register_form";
 
@@ -15,11 +14,12 @@ type Form = {
   name: string;
   phone: string;
   district: string;
+  village: string;
   role: string;
   service: string;
 };
 
-const EMPTY: Form = { name: "", phone: "", district: "", role: "", service: "" };
+const EMPTY: Form = { name: "", phone: "", district: "", village: "", role: "", service: "" };
 
 function validate(form: Form, dict: any): Partial<Record<keyof Form, string>> {
   const errors: Partial<Record<keyof Form, string>> = {};
@@ -98,7 +98,7 @@ export function RegisterForm({ dict }: { dict: any }) {
     e.preventDefault();
     const errs = validate(form, dict);
     setErrors(errs);
-    setTouched({ name: true, phone: true, district: true, role: true, service: true });
+    setTouched({ name: true, phone: true, district: true, village: true, role: true, service: true });
     if (Object.keys(errs).length) return;
 
     setStatus("sending");
@@ -117,7 +117,7 @@ export function RegisterForm({ dict }: { dict: any }) {
     }
   }
 
-  const waMessage = `Hi, I just registered on PrithviX and want to know more.\n\nName: ${form.name}\nMobile: ${form.phone}\nDistrict: ${form.district}\nI am a: ${form.role}\nInterested in: ${form.service}`;
+  const waMessage = `Hi, I just registered on PrithviX and want to know more.\n\nName: ${form.name}\nMobile: ${form.phone}\nNearest City: ${form.district}${form.village ? `\nVillage: ${form.village}` : ""}\nI am a: ${form.role}\nInterested in: ${form.service}`;
 
   return (
     <section id="register" className="section-pad bg-field-deep">
@@ -194,11 +194,27 @@ export function RegisterForm({ dict }: { dict: any }) {
                     name="district"
                     placeholder={dict.labels.districtPlaceholder}
                     autoComplete="address-level2"
+                    list="india-cities"
                     value={form.district}
                     error={touched.district ? errors.district : undefined}
                     valid={touched.district && !errors.district && !!form.district}
                     onChange={(v) => update("district", v)}
                     onBlur={() => blur("district")}
+                  />
+                  <datalist id="india-cities">
+                    {cities.map((city) => (
+                      <option key={city} value={city} />
+                    ))}
+                  </datalist>
+                  <Field
+                    label={dict.labels.village}
+                    name="village"
+                    placeholder={dict.labels.villagePlaceholder}
+                    value={form.village}
+                    error={touched.village ? errors.village : undefined}
+                    valid={touched.village && !errors.village && !!form.village}
+                    onChange={(v) => update("village", v)}
+                    onBlur={() => blur("village")}
                   />
                   <SelectField
                     label={dict.labels.role}
@@ -301,6 +317,7 @@ function Field({
   type?: string;
   placeholder?: string;
   autoComplete?: string;
+  list?: string;
   inputMode?: "numeric" | "text";
 }) {
   return (
@@ -316,6 +333,7 @@ function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
+          list={rest.list}
           className={fieldClasses(error, valid)}
           {...rest}
         />

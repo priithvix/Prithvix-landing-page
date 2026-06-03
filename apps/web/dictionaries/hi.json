@@ -320,8 +320,10 @@
       "namePlaceholder": "आपका नाम",
       "phone": "मोबाइल नंबर",
       "phonePlaceholder": "+91 XXXXX XXXXX",
-      "district": "जिला / शहर",
+      "district": "निकटतम शहर / जिला",
       "districtPlaceholder": "उदा. अहमदाबाद, सूरत, नासिक",
+      "village": "गाँव / तालुका (वैकल्पिक)",
+      "villagePlaceholder": "उदा. पालडी",
       "role": "मैं एक...",
       "roleOptions": [
         "किसान",
