@@ -8,15 +8,10 @@ import { SITE } from "@/lib/site";
  * Thin top bar above the nav (PRD §1.5). Rotates 3 messages every 4s with a
  * fade. Dismissible - stays hidden 24h via localStorage.
  */
-const MESSAGES = [
-  "Early registrations open - founding member pricing available",
-  "Register now for priority access",
-  `Questions? WhatsApp us: ${SITE.whatsapp.display}`,
-];
 
 const DISMISS_KEY = "pv_announce_dismissed_until";
 
-export function AnnouncementBar() {
+export function AnnouncementBar({ dict }: { dict: any }) {
   const [visible, setVisible] = useState(false);
   const [idx, setIdx] = useState(0);
 
@@ -32,7 +27,7 @@ export function AnnouncementBar() {
 
   useEffect(() => {
     if (!visible) return;
-    const t = setInterval(() => setIdx((i) => (i + 1) % MESSAGES.length), 4000);
+    const t = setInterval(() => setIdx((i) => (i + 1) % dict.messages.length), 4000);
     return () => clearInterval(t);
   }, [visible]);
 
@@ -56,7 +51,7 @@ export function AnnouncementBar() {
         className="font-body text-[12px] font-normal text-[rgba(245,240,230,0.88)]"
         style={{ animation: "pv-fade 0.6s ease" }}
       >
-        {MESSAGES[idx]}
+        {dict.messages[idx]}
       </p>
       <button
         onClick={dismiss}

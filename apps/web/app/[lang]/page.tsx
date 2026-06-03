@@ -26,26 +26,26 @@ export default async function Home(props: { params: Promise<{ lang: string }> })
   return (
     <>
       <Preloader />
-      <FloatingElements />
+      <FloatingElements dict={dict.floatingElements} />
 
       {/* Fixed header: announcement bar + nav */}
       <header className="fixed inset-x-0 top-0 z-[100]">
-        <AnnouncementBar />
+        <AnnouncementBar dict={dict.announcementBar} />
         <Navbar dict={dict.navbar} lang={lang} />
       </header>
 
       <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Services />
-        <DashboardPreview />
-        <AiAgent />
-        <WhoFor />
-        <HowItWorks />
-        <SocialProof />
-        <RegisterForm />
-        <Faq />
+        <Hero dict={dict.hero} lang={lang} />
+        <Marquee dict={dict.marquee} />
+        <About dict={dict.about} />
+        <Services dict={dict.services} />
+        <DashboardPreview dict={dict.dashboardPreview} />
+        <AiAgent dict={dict.aiAgent} lang={lang} />
+        <WhoFor dict={dict.whoFor} />
+        <HowItWorks dict={dict.howItWorks} />
+        <SocialProof dict={dict.socialProof} />
+        <RegisterForm dict={dict.registerForm} />
+        <Faq dict={dict.faq} />
       </main>
 
       <Footer dict={dict.footer} />

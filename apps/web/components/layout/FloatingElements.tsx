@@ -6,7 +6,7 @@ import { waLink } from "@/lib/site";
 import { scrollToAnchor, scrollToTop } from "@/lib/scroll";
 import { track } from "@/components/Analytics";
 
-export function FloatingElements() {
+export function FloatingElements({ dict }: { dict: any }) {
   const [progress, setProgress] = useState(0);
   const [showTop, setShowTop] = useState(false);
   const [barVisible, setBarVisible] = useState(true);
@@ -69,7 +69,7 @@ export function FloatingElements() {
       >
         <WhatsAppIcon />
         <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-soil-deep px-3 py-1.5 font-body text-[12px] text-rabi-dust opacity-0 transition-opacity group-hover:opacity-100 md:block">
-          Chat with us
+          {dict.whatsappChat}
         </span>
       </a>
 
@@ -107,7 +107,7 @@ export function FloatingElements() {
           }}
           className="flex-1 font-heading text-[15px] font-semibold text-rabi-dust"
         >
-          Register Free →
+          {dict.registerFree}
         </button>
         <button
           onClick={dismissBar}

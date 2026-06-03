@@ -13,38 +13,21 @@ type Card = {
   image?: { src: string; alt: string };
 };
 
-const CARDS: Card[] = [
+const ICONS = [Phone, MessageCircle, Languages, NotebookPen];
+const IMAGES = [
   {
-    Icon: Phone,
-    title: "AI Voice Calling Agent",
-    desc: "Automatically calls farmers for credit repayment reminders, follow-ups, and order confirmations. Speaks in their local language. Works 24/7 without a human.",
-    image: {
-      src: "/images/ai-section/img-09-farmer-call.webp",
-      alt: "Indian farmer taking a phone call at the edge of a farm field",
-    },
+    src: "/images/ai-section/img-09-farmer-call.webp",
+    alt: "Indian farmer taking a phone call at the edge of a farm field",
   },
   {
-    Icon: MessageCircle,
-    title: "WhatsApp AI Agent",
-    desc: "One AI agent handles hundreds of customers for multiple dealers simultaneously. Sends reminders, answers questions, collects data - all on WhatsApp.",
-    image: {
-      src: "/images/ai-section/img-10-whatsapp-hands.webp",
-      alt: "Farmer's hands holding an Android phone with WhatsApp open",
-    },
+    src: "/images/ai-section/img-10-whatsapp-hands.webp",
+    alt: "Farmer's hands holding an Android phone with WhatsApp open",
   },
-  {
-    Icon: Languages,
-    title: "Multilingual Support",
-    desc: "Speaks and understands Hindi, Gujarati, Marathi, Telugu, and more. No language barrier between your business and your customers.",
-  },
-  {
-    Icon: NotebookPen,
-    title: "Smart Data Collection",
-    desc: "AI asks the right questions, records answers, and automatically updates your CRM. No manual data entry after every call or conversation.",
-  },
+  undefined,
+  undefined
 ];
 
-export function AiAgent() {
+export function AiAgent({ dict, lang }: { dict: any; lang?: string }) {
   return (
     <section id="ai" className="section-pad relative overflow-hidden bg-field-deep">
 
@@ -56,24 +39,24 @@ export function AiAgent() {
               className="mt-5 font-display font-bold leading-[1.1] tracking-h2"
               style={{ fontSize: "var(--text-h2)", color: "var(--color-rabi-dust)" }}
             >
-              Your Business Runs on{" "}
+              {dict.headingPrefix}{" "}
               <PointerHighlight>
                 <span
-                  className="inline-block px-1"
+                  className={`inline-block px-1 ${
+                    lang === "hi" || lang === "gu" ? "py-1.5" : ""
+                  }`}
                   style={{
                     color: "var(--color-charcoal-root)",
                   }}
                 >
-                  Autopilot
+                  {dict.headingSuffix}
                 </span>
               </PointerHighlight>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-4 max-w-[460px] font-body text-[17px] font-light leading-[1.7]" style={{ color: "rgba(245,240,230,0.58)" }}>
-              PrithviX&apos;s AI agents handle your communication 24/7 - calling
-              customers, sending WhatsApp reminders, and collecting information.
-              No human operator needed.
+              {dict.sub}
             </p>
           </Reveal>
           <Reveal delay={0.2}>
@@ -85,7 +68,7 @@ export function AiAgent() {
                 color: "var(--color-harvest-amber)",
               }}
             >
-              Get Early Access
+              {dict.cta}
             </ScrollLink>
           </Reveal>
 
@@ -109,13 +92,13 @@ export function AiAgent() {
               </span>
               <div>
                 <blockquote className="font-display text-[16px] italic leading-[1.6] text-[rgba(245,240,230,0.85)]">
-                  “A vision to Enable and Empower the Dealers and Farmers of India.”
+                  {dict.quote}
                 </blockquote>
                 <p className="mt-2 font-heading text-[14px] font-semibold text-rabi-dust">
-                  Founder
+                  {dict.quoteAuthor}
                 </p>
                 <p className="font-body text-[12px] text-[rgba(245,240,230,0.45)]">
-                  PrithviX
+                  {dict.quoteCompany}
                 </p>
               </div>
             </div>
@@ -124,40 +107,44 @@ export function AiAgent() {
 
         {/* Right - 4 glass cards */}
         <div className="flex flex-col gap-3.5">
-          {CARDS.map((c, i) => (
-            <Reveal
-              key={c.title}
-              delay={0.08 * i}
-              className="group grid grid-cols-1 items-center gap-4 rounded-2xl border-[0.5px] p-6 transition-colors duration-200 md:grid-cols-[1fr_auto]"
-              style={{
-                background: "rgba(245,240,230,0.04)",
-                borderColor: "rgba(245,240,230,0.10)",
-              }}
-            >
-              <div className="order-2 md:order-1">
-                <c.Icon size={26} className="mb-2 text-turmeric" strokeWidth={1.75} />
-                <h3 className="mb-1.5 font-heading text-[16px] font-semibold" style={{ color: "var(--color-rabi-dust)" }}>
-                  {c.title}
-                </h3>
-                <p className="font-body text-[13px] font-light leading-[1.6]" style={{ color: "rgba(245,240,230,0.5)" }}>
-                  {c.desc}
-                </p>
-              </div>
-              {c.image && (
-                <div className="order-1 h-[160px] w-full overflow-hidden rounded-xl md:order-2 md:h-[100px] md:w-[100px]">
-                  <Image
-                    src={c.image.src}
-                    alt={c.image.alt}
-                    width={280}
-                    height={210}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                    style={{ filter: "saturate(0.85) brightness(0.9)" }}
-                  />
+          {dict.cards.map((c: any, i: number) => {
+            const Icon = ICONS[i];
+            const image = IMAGES[i];
+            return (
+              <Reveal
+                key={c.title}
+                delay={0.08 * i}
+                className="group grid grid-cols-1 items-center gap-4 rounded-2xl border-[0.5px] p-6 transition-colors duration-200 md:grid-cols-[1fr_auto]"
+                style={{
+                  background: "rgba(245,240,230,0.04)",
+                  borderColor: "rgba(245,240,230,0.10)",
+                }}
+              >
+                <div className="order-2 md:order-1">
+                  <Icon size={26} className="mb-2 text-turmeric" strokeWidth={1.75} />
+                  <h3 className="mb-1.5 font-heading text-[16px] font-semibold" style={{ color: "var(--color-rabi-dust)" }}>
+                    {c.title}
+                  </h3>
+                  <p className="font-body text-[13px] font-light leading-[1.6]" style={{ color: "rgba(245,240,230,0.5)" }}>
+                    {c.desc}
+                  </p>
                 </div>
-              )}
-            </Reveal>
-          ))}
+                {image && (
+                  <div className="order-1 h-[160px] w-full overflow-hidden rounded-xl md:order-2 md:h-[100px] md:w-[100px]">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={280}
+                      height={210}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                      style={{ filter: "saturate(0.85) brightness(0.9)" }}
+                    />
+                  </div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

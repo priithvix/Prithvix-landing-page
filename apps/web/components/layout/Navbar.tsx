@@ -15,8 +15,8 @@ export function Navbar({ dict, lang }: { dict: any; lang: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
-  const LANGUAGES = ["en", "hi", "gu"];
-  const LANG_LABELS: Record<string, string> = { en: "ENGLISH", hi: "हिंदी", gu: "ગુજરાતી" };
+  const LANGUAGES = ["en", "hi", "gu", "pa"];
+  const LANG_LABELS: Record<string, string> = { en: "ENGLISH", hi: "हिंदी", gu: "ગુજરાતી", pa: "ਪੰਜਾਬੀ" };
 
   const LINKS = [
     { label: dict.about, href: "#about" },

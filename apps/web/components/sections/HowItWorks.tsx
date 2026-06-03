@@ -5,40 +5,14 @@ import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionPill } from "@/components/ui/SectionPill";
 
-const STEPS = [
-  {
-    n: 1,
-    title: "Register",
-    desc: "Sign up as a Farmer, Dealer, Equipment Owner, or Labour Provider in under 2 minutes.",
-  },
-  {
-    n: 2,
-    title: "Set Up Profile",
-    desc: "List your equipment, services, or products. Dealers set up their store and import their farmer database.",
-  },
-  {
-    n: 3,
-    title: "Connect",
-    desc: "Farmers discover and book equipment, labour, and supplies. Dealers manage customers with AI tools.",
-  },
-  {
-    n: 4,
-    title: "Grow",
-    desc: "AI handles follow-ups, reminders, and communication automatically while you focus on your work.",
-  },
-];
 
-export function HowItWorks() {
+
+export function HowItWorks({ dict }: { dict: any }) {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 90%", "end 80%"],
   });
-  
-  // inset(top right bottom left)
-  // 100% top means everything is clipped. 0% means fully visible.
-  // This reveals the image from the bottom up as you scroll!
-  const clipPath = useTransform(scrollYProgress, [0, 1], ["inset(100% 0 0 0)", "inset(0% 0 0 0)"]);
 
   return (
     <section ref={containerRef} id="how" className="section-pad relative overflow-hidden bg-rabi-dust">
@@ -51,20 +25,19 @@ export function HowItWorks() {
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
           opacity: 0.20,
-          clipPath,
         }}
       />
       <div className="container-x relative z-10">
         <div className="mx-auto mb-14 max-w-[560px] text-center">
           <Reveal>
-            <SectionPill>Simple Process</SectionPill>
+            <SectionPill>{dict.pill}</SectionPill>
           </Reveal>
           <Reveal delay={0.1}>
             <h2
               className="mt-5 font-heading font-bold tracking-h2 text-charcoal-root"
               style={{ fontSize: "var(--text-h2)" }}
             >
-              How PrithviX Works
+              {dict.heading}
             </h2>
           </Reveal>
         </div>
@@ -76,8 +49,8 @@ export function HowItWorks() {
             className="absolute left-[12.5%] right-[12.5%] top-7 hidden border-t-2 border-dashed md:block"
             style={{ borderColor: "rgba(27,58,45,0.2)" }}
           />
-          {STEPS.map((s, i) => (
-            <TimelineStep key={s.n} s={s} i={i} totalSteps={STEPS.length} scrollYProgress={scrollYProgress} />
+          {dict.steps.map((s: any, i: number) => (
+            <TimelineStep key={s.n} s={s} i={i} totalSteps={dict.steps.length} scrollYProgress={scrollYProgress} />
           ))}
         </div>
       </div>
@@ -91,13 +64,11 @@ function TimelineStep({
   totalSteps,
   scrollYProgress,
 }: {
-  s: (typeof STEPS)[0];
+  s: { n: number; title: string; desc: string };
   i: number;
   totalSteps: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  // Stagger the start and end of each step based on its index.
-  // Using a slightly wider window than exactly 1/4 so they overlap beautifully.
   const stepSize = 1 / totalSteps;
   const start = Math.max(0, i * stepSize - 0.1);
   const end = Math.min(1, start + stepSize + 0.1);

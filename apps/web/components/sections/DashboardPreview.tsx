@@ -3,52 +3,33 @@ import { SectionPill } from "@/components/ui/SectionPill";
 import { DashboardMock } from "./DashboardMock";
 import { ScrollLink } from "@/components/ui/ScrollLink";
 
-const CALLOUTS = [
-  {
-    title: "One-click credit reminders",
-    desc: "Send payment reminders to all overdue farmers with a single button.",
-  },
-  {
-    title: "Live AI agent status",
-    desc: "See how many calls completed today and how many were answered.",
-  },
-  {
-    title: "Full farmer ledger",
-    desc: "Every purchase, payment, and balance in one clear view.",
-  },
-  {
-    title: "Low stock alerts",
-    desc: "Automatically flags products running low before sowing season.",
-  },
-];
 
-export function DashboardPreview() {
+
+export function DashboardPreview({ dict }: { dict: any }) {
   return (
     <section id="dashboard" className="section-pad overflow-hidden bg-white">
       <div className="container-x grid items-center gap-12 lg:grid-cols-[2fr_3fr]">
         {/* Left - text */}
         <div>
           <Reveal>
-            <SectionPill>See It Working</SectionPill>
+            <SectionPill>{dict.pill}</SectionPill>
           </Reveal>
           <Reveal delay={0.1}>
             <h2
               className="mt-5 font-heading font-bold tracking-h2 text-charcoal-root"
               style={{ fontSize: "var(--text-h2)" }}
             >
-              The Dealer <span className="text-field-deep">Dashboard</span>
+              {dict.heading} <span className="text-field-deep">{dict.headingHighlight}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-4 max-w-[440px] font-body text-[17px] font-light leading-[1.7] text-earth-brown">
-              Everything a dealer needs in one screen. Outstanding credit, farmer
-              records, inventory levels, and AI call status - visible at a glance.
-              No training needed.
+              {dict.sub}
             </p>
           </Reveal>
 
           <div className="mt-6 flex flex-col gap-4">
-            {CALLOUTS.map((c, i) => (
+            {dict.callouts.map((c: any, i: number) => (
               <Reveal key={c.title} delay={0.1 + i * 0.08} className="flex gap-3">
                 <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-harvest-amber" />
                 <div>
@@ -68,7 +49,7 @@ export function DashboardPreview() {
               href="#register"
               className="mt-6 inline-flex items-center gap-1 font-heading text-[14px] font-semibold text-field-deep transition-[gap] hover:gap-2"
             >
-              Explore all features →
+              {dict.link}
             </ScrollLink>
           </Reveal>
         </div>

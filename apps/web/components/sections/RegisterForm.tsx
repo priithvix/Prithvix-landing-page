@@ -7,29 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { waLink } from "@/lib/site";
 import { track } from "@/components/Analytics";
 
-const BENEFITS = [
-  "Free to register",
-  "Early access to all features",
-  "Dedicated onboarding support",
-  "Founding-member pricing, locked in",
-];
 
-const ROLES = [
-  "Farmer",
-  "Agri Input Dealer",
-  "Equipment Owner",
-  "Farm Labour Provider",
-  "Other",
-];
-
-const SERVICES = [
-  "Machinery Rental",
-  "Labour Services",
-  "Dealer ERP & CRM",
-  "Online Store",
-  "AI Calling & WhatsApp Agent",
-  "All Services",
-];
 
 const STORAGE_KEY = "pv_register_form";
 
@@ -43,19 +21,19 @@ type Form = {
 
 const EMPTY: Form = { name: "", phone: "", district: "", role: "", service: "" };
 
-function validate(form: Form): Partial<Record<keyof Form, string>> {
+function validate(form: Form, dict: any): Partial<Record<keyof Form, string>> {
   const errors: Partial<Record<keyof Form, string>> = {};
-  if (!form.name.trim()) errors.name = "Please enter your name";
+  if (!form.name.trim()) errors.name = dict.errors.name;
   const digits = form.phone.replace(/\D/g, "").replace(/^91/, "");
   if (!/^[6-9]\d{9}$/.test(digits))
-    errors.phone = "Enter a valid 10-digit mobile number";
-  if (!form.district.trim()) errors.district = "Please enter your district";
-  if (!form.role) errors.role = "Please select an option";
-  if (!form.service) errors.service = "Please select an option";
+    errors.phone = dict.errors.phone;
+  if (!form.district.trim()) errors.district = dict.errors.district;
+  if (!form.role) errors.role = dict.errors.role;
+  if (!form.service) errors.service = dict.errors.service;
   return errors;
 }
 
-export function RegisterForm() {
+export function RegisterForm({ dict }: { dict: any }) {
   const [form, setForm] = useState<Form>(EMPTY);
   const [touched, setTouched] = useState<Partial<Record<keyof Form, boolean>>>({});
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
@@ -68,8 +46,8 @@ export function RegisterForm() {
   useEffect(() => {
     const applyRole = (role: string) => {
       const map: Record<string, string> = {
-        farmer: "Farmer",
-        dealer: "Agri Input Dealer",
+        farmer: dict.labels.roleOptions[0],
+        dealer: dict.labels.roleOptions[1],
       };
       const mapped = map[role.toLowerCase()];
       if (mapped) setForm((f) => ({ ...f, role: mapped }));
@@ -107,18 +85,18 @@ export function RegisterForm() {
   const update = (key: keyof Form, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (touched[key]) {
-      setErrors(validate({ ...form, [key]: value }));
+      setErrors(validate({ ...form, [key]: value }, dict));
     }
   };
 
   const blur = (key: keyof Form) => {
     setTouched((t) => ({ ...t, [key]: true }));
-    setErrors(validate(form));
+    setErrors(validate(form, dict));
   };
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const errs = validate(form);
+    const errs = validate(form, dict);
     setErrors(errs);
     setTouched({ name: true, phone: true, district: true, role: true, service: true });
     if (Object.keys(errs).length) return;
@@ -147,24 +125,23 @@ export function RegisterForm() {
         {/* Left - text */}
         <div>
           <Reveal>
-            <SectionPill variant="onDark">Be one of the First</SectionPill>
+            <SectionPill variant="onDark">{dict.pill}</SectionPill>
           </Reveal>
           <Reveal delay={0.1}>
             <h2
               className="mt-5 font-display font-bold tracking-h2 text-rabi-dust"
               style={{ fontSize: "var(--text-h2)" }}
             >
-              Join PrithviX <span className="text-turmeric">Early</span>
+              {dict.headingPrefix} <span className="text-turmeric">{dict.headingSuffix}</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-4 max-w-[460px] font-body text-[17px] font-light leading-[1.7] text-[rgba(245,240,230,0.68)]">
-              We&apos;re onboarding our first users. Register your interest today
-              and get priority access when we launch in your area.
+              {dict.sub}
             </p>
           </Reveal>
           <div className="mt-6 flex flex-col gap-3">
-            {BENEFITS.map((b, i) => (
+            {dict.benefits.map((b: any, i: number) => (
               <Reveal key={b} delay={0.1 + i * 0.06} className="flex items-center gap-2.5">
                 <span className="font-bold text-turmeric">✓</span>
                 <span className="font-body text-[15px] text-rabi-dust">{b}</span>
@@ -180,18 +157,18 @@ export function RegisterForm() {
             style={{ boxShadow: "var(--shadow-hover)" }}
           >
             {status === "success" ? (
-              <SuccessPanel waMessage={waMessage} />
+              <SuccessPanel waMessage={waMessage} dict={dict} />
             ) : (
               <form onSubmit={submit} noValidate>
                 <h3 className="mb-6 font-heading text-[20px] font-bold text-charcoal-root">
-                  Register Your Interest
+                  {dict.formHeading}
                 </h3>
 
                 <div className="flex flex-col gap-4">
                   <Field
-                    label="Full Name"
+                    label={dict.labels.name}
                     name="name"
-                    placeholder="Your name"
+                    placeholder={dict.labels.namePlaceholder}
                     autoComplete="name"
                     value={form.name}
                     error={touched.name ? errors.name : undefined}
@@ -200,11 +177,11 @@ export function RegisterForm() {
                     onBlur={() => blur("name")}
                   />
                   <Field
-                    label="Mobile Number"
+                    label={dict.labels.phone}
                     name="phone"
                     type="tel"
                     inputMode="numeric"
-                    placeholder="+91 XXXXX XXXXX"
+                    placeholder={dict.labels.phonePlaceholder}
                     autoComplete="tel-national"
                     value={form.phone}
                     error={touched.phone ? errors.phone : undefined}
@@ -213,9 +190,9 @@ export function RegisterForm() {
                     onBlur={() => blur("phone")}
                   />
                   <Field
-                    label="District / City"
+                    label={dict.labels.district}
                     name="district"
-                    placeholder="e.g. Ahmedabad, Surat, Nashik"
+                    placeholder={dict.labels.districtPlaceholder}
                     autoComplete="address-level2"
                     value={form.district}
                     error={touched.district ? errors.district : undefined}
@@ -224,18 +201,20 @@ export function RegisterForm() {
                     onBlur={() => blur("district")}
                   />
                   <SelectField
-                    label="I am a..."
+                    label={dict.labels.role}
                     name="role"
-                    options={ROLES}
+                    options={dict.labels.roleOptions}
+                    defaultOption={dict.labels.selectPlaceholder}
                     value={form.role}
                     error={touched.role ? errors.role : undefined}
                     onChange={(v) => update("role", v)}
                     onBlur={() => blur("role")}
                   />
                   <SelectField
-                    label="Interested in..."
+                    label={dict.labels.service}
                     name="service"
-                    options={SERVICES}
+                    options={dict.labels.serviceOptions}
+                    defaultOption={dict.labels.selectPlaceholder}
                     value={form.service}
                     error={touched.service ? errors.service : undefined}
                     onChange={(v) => update("service", v)}
@@ -245,8 +224,7 @@ export function RegisterForm() {
 
                 {count > 0 && (
                   <p className="mt-5 text-center font-body text-[13px] font-medium text-field-deep">
-                    {count.toLocaleString("en-IN")} farmers and dealers already
-                    registered.
+                    {dict.alreadyRegistered.replace("{count}", count.toLocaleString("en-IN"))}
                   </p>
                 )}
 
@@ -257,30 +235,30 @@ export function RegisterForm() {
                 >
                   {status === "sending" ? (
                     <>
-                      <Loader2 size={16} className="animate-spin" /> Sending...
+                      <Loader2 size={16} className="animate-spin" /> {dict.sending}
                     </>
                   ) : (
-                    "Submit Interest →"
+                    dict.submit
                   )}
                 </button>
 
                 {status === "error" && (
                   <p className="mt-3 text-center font-body text-[13px] text-[#c0392b]">
-                    Something went wrong. Please try again or{" "}
+                    {dict.errorMsg}{" "}
                     <a
                       href={waLink("Hi, I tried to register on PrithviX but the form failed.")}
                       className="underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      WhatsApp us directly
+                      {dict.errorLink}
                     </a>
                     .
                   </p>
                 )}
 
                 <p className="mt-3 text-center font-body text-[12px] text-dry-clay">
-                  Free to join. No spam. We&apos;ll contact you within 1 hour.
+                  {dict.privacyMsg}
                 </p>
               </form>
             )}
@@ -364,6 +342,7 @@ function SelectField({
   onChange,
   onBlur,
   error,
+  defaultOption,
 }: {
   label: string;
   name: string;
@@ -372,6 +351,7 @@ function SelectField({
   onChange: (v: string) => void;
   onBlur: () => void;
   error?: string;
+  defaultOption: string;
 }) {
   return (
     <div>
@@ -394,7 +374,7 @@ function SelectField({
         }}
       >
         <option value="" disabled>
-          Select an option
+          {defaultOption}
         </option>
         {options.map((o) => (
           <option key={o} value={o} style={{ color: "var(--color-earth-brown)" }}>
@@ -409,17 +389,17 @@ function SelectField({
   );
 }
 
-function SuccessPanel({ waMessage }: { waMessage: string }) {
+function SuccessPanel({ waMessage, dict }: { waMessage: string, dict: any }) {
   return (
     <div className="py-6 text-center" style={{ animation: "pv-fade 0.4s ease" }}>
       <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-field-mid">
         <Check size={28} className="text-rabi-dust" />
       </div>
       <h3 className="font-heading text-[22px] font-bold text-charcoal-root">
-        You&apos;re on the list!
+        {dict.successHeading}
       </h3>
       <p className="mx-auto mt-2 max-w-[320px] font-body text-[15px] font-light text-earth-brown">
-        We&apos;ll contact you within 24 hours. Expect a WhatsApp message from us.
+        {dict.successSub}
       </p>
       <a
         href={waLink(waMessage)}
@@ -427,7 +407,7 @@ function SuccessPanel({ waMessage }: { waMessage: string }) {
         rel="noopener noreferrer"
         className="mt-6 inline-flex items-center gap-2 rounded-pill bg-[#25D366] px-6 py-3 font-heading text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
       >
-        Message us now
+        {dict.successBtn}
       </a>
     </div>
   );

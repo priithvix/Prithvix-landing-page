@@ -31,5 +31,398 @@
       "termsOfUse": "Terms of Use"
     },
     "copyright": "© {year} PrithviX. All rights reserved. Made with ❤️ for Bharat's farmers."
+  },
+  "announcementBar": {
+    "messages": [
+      "Early registrations open - founding member pricing available",
+      "Register now for priority access",
+      "Questions? WhatsApp us:"
+    ]
+  },
+  "hero": {
+    "headline": [
+      [
+        {
+          "text": "Smart",
+          "color": "rabi"
+        },
+        {
+          "text": "Tools",
+          "color": "rabi"
+        },
+        {
+          "text": "for",
+          "color": "rabi"
+        }
+      ],
+      [
+        {
+          "text": "Bharat's",
+          "color": "amber"
+        }
+      ]
+    ],
+    "rotatingTexts": [
+      "Farmers",
+      "Dealers",
+      "FPOs",
+      "Agri-Business"
+    ],
+    "subHeadline": "PrithviX connects agri input dealers and farmers through technology. One platform. Endless growth.",
+    "ctaJoin": "Join the Platform",
+    "ctaExplore": "Explore Services",
+    "stats": [
+      {
+        "label": "Services in one platform"
+      },
+      {
+        "label": "Indian languages supported"
+      },
+      {
+        "label": "AI works non-stop",
+        "static": "24/7"
+      }
+    ]
+  },
+  "marquee": [
+    "Machinery Rental",
+    "Labour Services",
+    "Dealer ERP & CRM",
+    "Online Store for Dealers",
+    "AI Calling Agent",
+    "WhatsApp AI Agent",
+    "Credit Reminders",
+    "Multi-Dealer Platform"
+  ],
+  "about": {
+    "pill": "Who We Are",
+    "heading": "Agriculture meets",
+    "headingHighlight": "Technology",
+    "sub": "PrithviX is building the complete digital infrastructure for India's agri input ecosystem - from the dealer's shop to the farmer's field.",
+    "badge": "Built for India's Agricultural Ecosystem",
+    "badgeSub": "Connecting Farmers · Dealers · Labourers across India",
+    "features": [
+      {
+        "title": "Built for Bharat",
+        "desc": "Designed specifically for India's agricultural markets - supports local languages, works on basic smartphones, and understands rural business models."
+      },
+      {
+        "title": "AI at the Core",
+        "desc": "Intelligent automation handles credit follow-ups, customer communication, and business insights - so you focus on farming and selling, not paperwork."
+      },
+      {
+        "title": "One Ecosystem",
+        "desc": "Farmers, dealers, equipment owners, and labour all connected on one platform - with trust, transparency, and technology."
+      }
+    ]
+  },
+  "services": {
+    "pill": "What We Offer",
+    "heading": "Four Powerful",
+    "headingHighlight": "Services",
+    "sub": "Everything the agri ecosystem needs under one roof.",
+    "items": [
+      {
+        "number": "01 - RENTAL",
+        "title": "Machinery Rental",
+        "desc": "Farmers can rent tractors, harvesters, sprayers, and other equipment by the day. Equipment owners earn from idle machinery.",
+        "features": [
+          "List your equipment in minutes",
+          "Rent by day, week, or season",
+          "Verified equipment owners",
+          "Location-based discovery",
+          "Secure payments & booking"
+        ],
+        "linkText": "List your equipment"
+      },
+      {
+        "number": "02 - LABOUR",
+        "title": "Labour Services",
+        "desc": "Need workers for sowing, harvesting, or field work? PrithviX connects verified farm labourers directly to farmers who need them on-demand.",
+        "features": [
+          "Verified skilled farm workers",
+          "Book by day or season",
+          "Transparent pricing",
+          "Rated & reviewed workers",
+          "Available across districts"
+        ],
+        "linkText": "Find workers near you"
+      },
+      {
+        "number": "03 - ERP & CRM",
+        "title": "Dealer ERP & CRM",
+        "desc": "Complete business management for agri input dealers. Track inventory, manage credit, handle farmer relationships, and automate payment follow-ups - all in one place.",
+        "features": [
+          "Farmer CRM & QR lookup",
+          "Sales, billing & GST invoices",
+          "Udhaar (credit) management",
+          "Inventory & batch tracking",
+          "Daily close & analytics",
+          "Statutory compliance registers",
+          "WhatsApp orders & broadcast",
+          "AI crop advisory",
+          "Schemes & crop calendar",
+          "Staff roles & permissions",
+          "Region-wise sales reports",
+          "Full Tally-style accounting & GST ERP",
+          "Purchase, banking & reconciliation",
+          "One shared database - no double entry"
+        ],
+        "linkText": "Manage your business"
+      },
+      {
+        "number": "04 - E-COMMERCE",
+        "title": "Online Store for Dealers",
+        "desc": "Agri input dealers can launch their own digital storefront in minutes. Sell seeds, fertilizers, pesticides, and equipment online - reach farmers beyond your local area.",
+        "features": [
+          "Your own branded online store",
+          "Product catalogue management",
+          "Online orders & payments",
+          "Delivery tracking",
+          "WhatsApp order notifications"
+        ],
+        "linkText": "Launch your store"
+      }
+    ]
+  },
+  "dashboardPreview": {
+    "pill": "See It Working",
+    "heading": "The Dealer",
+    "headingHighlight": "Dashboard",
+    "sub": "Everything a dealer needs in one screen. Outstanding credit, farmer records, inventory levels, and AI call status - visible at a glance. No training needed.",
+    "callouts": [
+      {
+        "title": "One-click credit reminders",
+        "desc": "Send payment reminders to all overdue farmers with a single button."
+      },
+      {
+        "title": "Live AI agent status",
+        "desc": "See how many calls completed today and how many were answered."
+      },
+      {
+        "title": "Full farmer ledger",
+        "desc": "Every purchase, payment, and balance in one clear view."
+      },
+      {
+        "title": "Low stock alerts",
+        "desc": "Automatically flags products running low before sowing season."
+      }
+    ],
+    "link": "Explore all features →"
+  },
+  "aiAgent": {
+    "headingPrefix": "Your Business Runs on",
+    "headingSuffix": "Autopilot",
+    "sub": "PrithviX's AI agents handle your communication 24/7 - calling customers, sending WhatsApp reminders, and collecting information. No human operator needed.",
+    "cta": "Get Early Access",
+    "quote": "“A vision to Enable and Empower the Dealers and Farmers of India.”",
+    "quoteAuthor": "Founder",
+    "quoteCompany": "PrithviX",
+    "cards": [
+      {
+        "title": "AI Voice Calling Agent",
+        "desc": "Automatically calls farmers for credit repayment reminders, follow-ups, and order confirmations. Speaks in their local language. Works 24/7 without a human."
+      },
+      {
+        "title": "WhatsApp AI Agent",
+        "desc": "One AI agent handles hundreds of customers for multiple dealers simultaneously. Sends reminders, answers questions, collects data - all on WhatsApp."
+      },
+      {
+        "title": "Multilingual Support",
+        "desc": "Speaks and understands Hindi, Gujarati, Marathi, Telugu, and more. No language barrier between your business and your customers."
+      },
+      {
+        "title": "Smart Data Collection",
+        "desc": "AI asks the right questions, records answers, and automatically updates your CRM. No manual data entry after every call or conversation."
+      }
+    ]
+  },
+  "whoFor": {
+    "heading": "Built for Farmers & Dealers",
+    "cards": [
+      {
+        "title": "For Farmers",
+        "sub": "Access everything you need to farm smarter.",
+        "items": [
+          "Rent tractors & machinery near you",
+          "Hire skilled farm labour on demand",
+          "Buy agri inputs online from trusted dealers",
+          "Get AI-powered crop & service support",
+          "Track your orders & bookings in one app",
+          "Pay digitally - safe & transparent"
+        ],
+        "cta": "Get Early Access →"
+      },
+      {
+        "title": "For Dealers",
+        "sub": "Manage your agri input business digitally.",
+        "items": [
+          "Full ERP & CRM for your shop",
+          "Launch your own online store",
+          "AI calls farmers for credit recovery",
+          "WhatsApp agent handles customer queries",
+          "Track inventory, sales & ledgers",
+          "Reach farmers across your entire district"
+        ],
+        "cta": "Get Early Access →"
+      }
+    ]
+  },
+  "howItWorks": {
+    "pill": "Simple Process",
+    "heading": "How PrithviX Works",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Register",
+        "desc": "Sign up as a Farmer, Dealer, Equipment Owner, or Labour Provider in under 2 minutes."
+      },
+      {
+        "n": 2,
+        "title": "Set Up Profile",
+        "desc": "List your equipment, services, or products. Dealers set up their store and import their farmer database."
+      },
+      {
+        "n": 3,
+        "title": "Connect",
+        "desc": "Farmers discover and book equipment, labour, and supplies. Dealers manage customers with AI tools."
+      },
+      {
+        "n": 4,
+        "title": "Grow",
+        "desc": "AI handles follow-ups, reminders, and communication automatically while you focus on your work."
+      }
+    ]
+  },
+  "socialProof": {
+    "stats": [
+      "farmers & dealers registered",
+      "districts covered",
+      "services launching"
+    ],
+    "sub": "Be part of the first wave of farmers and dealers to digitise agriculture in India.",
+    "ready": "ready"
+  },
+  "registerForm": {
+    "pill": "Be one of the First",
+    "headingPrefix": "Join PrithviX",
+    "headingSuffix": "Early",
+    "sub": "We're onboarding our first users. Register your interest today and get priority access when we launch in your area.",
+    "benefits": [
+      "Free to register",
+      "Early access to all features",
+      "Dedicated onboarding support",
+      "Founding-member pricing, locked in"
+    ],
+    "formHeading": "Register Your Interest",
+    "labels": {
+      "name": "Full Name",
+      "namePlaceholder": "Your name",
+      "phone": "Mobile Number",
+      "phonePlaceholder": "+91 XXXXX XXXXX",
+      "district": "District / City",
+      "districtPlaceholder": "e.g. Ahmedabad, Surat, Nashik",
+      "role": "I am a...",
+      "roleOptions": [
+        "Farmer",
+        "Agri Input Dealer",
+        "Equipment Owner",
+        "Farm Labour Provider",
+        "Other"
+      ],
+      "service": "Interested in...",
+      "serviceOptions": [
+        "Machinery Rental",
+        "Labour Services",
+        "Dealer ERP & CRM",
+        "Online Store",
+        "AI Calling & WhatsApp Agent",
+        "All Services"
+      ],
+      "selectPlaceholder": "Select an option"
+    },
+    "errors": {
+      "name": "Please enter your name",
+      "phone": "Enter a valid 10-digit mobile number",
+      "district": "Please enter your district",
+      "role": "Please select an option",
+      "service": "Please select an option"
+    },
+    "alreadyRegistered": "{count} farmers and dealers already registered.",
+    "submit": "Submit Interest →",
+    "sending": "Sending...",
+    "errorMsg": "Something went wrong. Please try again or ",
+    "errorLink": "WhatsApp us directly",
+    "privacyMsg": "Free to join. No spam. We'll contact you within 1 hour.",
+    "successHeading": "You're on the list!",
+    "successSub": "We'll contact you within 24 hours. Expect a WhatsApp message from us.",
+    "successBtn": "Message us now"
+  },
+  "faq": {
+    "pill": "Common Questions",
+    "heading": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "Is it free to register? What will PrithviX charge me?",
+        "a": [
+          "Registering is completely free - for farmers, dealers, equipment owners, and labour providers. No credit card. No trial period. No hidden setup fee.",
+          "PrithviX only earns when you earn. We charge a 12% platform fee on completed equipment rental bookings and 10% on completed labour bookings - deducted automatically before your payout. If no booking happens, we charge nothing.",
+          "The Dealer ERP & CRM starts at ₹499/month - includes inventory, credit management, billing, GST invoices, and AI-powered payment reminders. No long-term contract. Cancel anytime."
+        ]
+      },
+      {
+        "q": "Is my data safe? Who can see my farmer customer list?",
+        "a": [
+          "Your farmer customer list is yours. Only you can see it - not other dealers, not our sales team, not anyone else on the platform. We do not use your customer data for our own marketing or share it with third parties. Ever.",
+          "All data is stored encrypted on Indian servers. We comply with India's data protection regulations. If you ever close your account, we permanently delete your data within 30 days on request."
+        ]
+      },
+      {
+        "q": "Where is PrithviX available right now?",
+        "a": [
+          "We are launching first in Gujarat and Rajasthan. Maharashtra is next, followed by Madhya Pradesh.",
+          "If your district is not listed, register anyway. We personally confirm your area's launch date within 24 hours of registration. Early registrations in unlaunched areas get first access when we expand there."
+        ]
+      },
+      {
+        "q": "I already use Tally. Can I move my dealer data to PrithviX?",
+        "a": [
+          "Yes. Export your data from Tally as Excel and we will help you import it into PrithviX - your farmer list, ledger balances, and product catalogue. Our onboarding team walks every new dealer through this personally. It typically takes one afternoon.",
+          "PrithviX is not a replacement for Tally - it is built specifically for agri input dealers and does things Tally cannot: farmer CRM with crop calendars, AI calling for credit recovery, WhatsApp order management, and statutory compliance registers (Form N, Form XII, Seed registers)."
+        ]
+      },
+      {
+        "q": "Does the AI calling agent actually speak Hindi and Gujarati - or just English?",
+        "a": [
+          "The AI speaks and understands Hindi, Gujarati, Marathi, Telugu, and more - not just English. It handles code-switching naturally: if a farmer starts in Gujarati and switches to Hindi mid-sentence, the agent follows without missing a beat.",
+          "The agent calls farmers on your behalf for credit payment reminders, order confirmations, and follow-up questions you define. Every call is recorded, transcribed, and summarised in your dashboard - with any payment commitments automatically logged against that farmer's account."
+        ]
+      },
+      {
+        "q": "If equipment breaks during a rental - who is responsible?",
+        "a": [
+          "Equipment owners list their machinery with photos and a verified condition rating before any booking goes live. Renters pay a refundable security deposit at booking time - held by PrithviX, not the owner.",
+          "If equipment fails during a rental: PrithviX holds the full payment, the owner must provide a working replacement within 24 hours or issue a proportionate refund for downtime. All disputes are mediated by our team within 48 hours. The renter is never left stranded without recourse."
+        ]
+      },
+      {
+        "q": "I'm a farm worker. How and when do I get paid?",
+        "a": [
+          "Payment goes directly to your UPI ID or bank account within 24 hours of the farmer confirming the work is complete. You never handle cash, never chase anyone, and never wait weeks.",
+          "PrithviX holds the farmer's payment in escrow from the moment you are booked. Once both parties confirm the job is done, it releases automatically. If there is any dispute about attendance or quality, our team mediates within 48 hours."
+        ]
+      },
+      {
+        "q": "When does PrithviX officially launch - and why register now?",
+        "a": [
+          "We are in pre-launch. The first 200 registered users in each district become Founding Members - they get: priority onboarding before the public launch; founding-member pricing locked in permanently, not available after launch; a dedicated setup call with our team; and first access to new features before they go public.",
+          "Registering takes 60 seconds. We call you within 1 hour to confirm your spot and answer any questions personally."
+        ]
+      }
+    ]
+  },
+  "floatingElements": {
+    "whatsappHover": "Chat with us",
+    "stickyRegister": "Register Free →"
   }
 }

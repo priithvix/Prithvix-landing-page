@@ -5,7 +5,7 @@ import { CountUp } from "@/components/ui/CountUp";
 
 type Stats = { registrations: number; districts: number };
 
-export function SocialProof() {
+export function SocialProof({ dict }: { dict: any }) {
   const [stats, setStats] = useState<Stats | null>(null);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export function SocialProof() {
   }, []);
 
   const counters = [
-    { value: stats?.registrations ?? 0, label: "farmers & dealers registered" },
-    { value: stats?.districts ?? 0, label: "districts covered" },
-    { value: 4, label: "services launching", ready: true },
+    { value: stats?.registrations ?? 0, label: dict.stats[0] },
+    { value: stats?.districts ?? 0, label: dict.stats[1] },
+    { value: 4, label: dict.stats[2], ready: true },
   ];
 
   return (
@@ -39,7 +39,7 @@ export function SocialProof() {
                   {stats || "ready" in c ? (
                     <CountUp end={c.value} />
                   ) : (
-                    <span>0</span>
+                    <span>{dict.ready}</span>
                   )}
                 </div>
                 <div className="mt-2 font-body text-[14px] text-dry-clay">
@@ -50,8 +50,7 @@ export function SocialProof() {
           ))}
         </div>
         <p className="mx-auto mt-8 max-w-[520px] text-center font-body text-[16px] font-light text-earth-brown">
-          Be part of the first wave of farmers and dealers to digitise agriculture
-          in India.
+          {dict.sub}
         </p>
       </div>
     </section>

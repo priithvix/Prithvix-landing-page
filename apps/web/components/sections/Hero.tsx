@@ -27,18 +27,9 @@ const INDIAN_MARKERS: GlobeMarker[] = [
   { lat: 18.5204, lng: 73.8567, label: "Pune" },
 ];
 
-const HEADLINE: { text: string; color: string }[][] = [
-  [{ text: "Smart", color: "rabi" }, { text: "Tools", color: "rabi" }, { text: "for", color: "rabi" }],
-  [{ text: "Bharat's", color: "amber" }],
-];
 
-const STATS = [
-  { end: 4, suffix: "", label: "Services in one platform" },
-  { end: 3, suffix: "+", label: "Indian languages supported" },
-  { static: "24/7", label: "AI works non-stop" },
-];
 
-export function Hero() {
+export function Hero({ dict, lang }: { dict: any; lang?: string }) {
   const [showScroll, setShowScroll] = useState(true);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -50,9 +41,9 @@ export function Hero() {
 
   // Per-line word offset so each word gets a global stagger delay without
   // mutating a counter during render.
-  const wordCounts = HEADLINE.map((line) => line.length);
+  const wordCounts = dict.headline.map((line: any) => line.length);
   const offsetFor = (lineIdx: number) =>
-    wordCounts.slice(0, lineIdx).reduce((a, b) => a + b, 0);
+    wordCounts.slice(0, lineIdx).reduce((a: number, b: number) => a + b, 0);
 
   return (
     <section
@@ -95,9 +86,9 @@ export function Hero() {
             className="mt-6 font-display font-bold leading-[1.05] tracking-hero"
             style={{ fontSize: "var(--text-hero)" }}
           >
-            {HEADLINE.map((line, li) => (
+            {dict.headline.map((line: any, li: number) => (
               <span key={li} className="block">
-                {line.map((w, wi) => {
+                {line.map((w: any, wi: number) => {
                   const delay = 0.4 + (offsetFor(li) + wi) * 0.08;
                   return (
                     <span
@@ -122,15 +113,17 @@ export function Hero() {
             ))}
             <span className="block mt-1">
               <RotatingText
-                texts={['Farmers', 'Dealers', 'FPOs', 'Agri-Business']}
-                mainClassName="inline-flex overflow-hidden bg-turmeric text-night-field px-4 py-1 md:py-2 rounded-[18px] md:rounded-[24px]"
+                texts={dict.rotatingTexts}
+                mainClassName={`inline-flex items-center overflow-hidden bg-turmeric text-night-field pl-4 rounded-[18px] md:rounded-[24px] ${
+                  lang !== "en" ? "pt-3 pb-3 pr-6 md:pt-3 md:pb-1 md:pr-2 min-h-[1.6em]" : "py-1 pr-4 md:py-2"
+                }`}
                 animatePresenceMode="popLayout"
                 staggerFrom="first"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "-120%" }}
                 staggerDuration={0.03}
-                splitLevelClassName="overflow-hidden pb-1"
+                splitLevelClassName={lang !== "en" ? "pb-3 pt-3 pr-3" : "overflow-hidden pb-1"}
                 transition={{ type: "spring", damping: 30, stiffness: 400 }}
                 rotationInterval={2000}
               />
@@ -141,8 +134,7 @@ export function Hero() {
             className="mt-6 max-w-[520px] font-body font-light leading-[1.75] text-[rgba(245,240,230,0.62)]"
             style={{ fontSize: "var(--text-body-lg)", animation: "pv-word-up 0.5s 0.9s both" }}
           >
-            PrithviX connects agri input dealers and farmers through technology.
-            One platform. Endless growth.
+            {dict.subHeadline}
           </p>
 
           {/* CTAs */}
@@ -158,7 +150,7 @@ export function Hero() {
               className="rounded-pill border-[0.5px] border-field-mid bg-field-deep px-7 py-3.5 font-heading text-[15px] font-semibold text-rabi-dust transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97]"
               style={{ animation: "pv-pulse 1.5s ease-in-out infinite" }}
             >
-              Join the Platform
+              {dict.ctaJoin}
             </button>
             <button
               onClick={() => {
@@ -167,7 +159,7 @@ export function Hero() {
               }}
               className="rounded-pill border-[1.5px] border-[rgba(245,240,230,0.2)] bg-transparent px-7 py-3.5 font-heading text-[15px] font-semibold text-rabi-dust transition-transform duration-200 hover:-translate-y-0.5 hover:border-[rgba(245,240,230,0.4)] active:scale-[0.97]"
             >
-              Explore Services
+              {dict.ctaExplore}
             </button>
           </div>
 
@@ -176,7 +168,7 @@ export function Hero() {
             className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4 md:mt-16"
             style={{ animation: "pv-word-up 0.5s 1.25s both" }}
           >
-            {STATS.map((s, i) => (
+            {dict.stats.map((s: any, i: number) => (
               <div key={i} className="flex items-center gap-6">
                 {i > 0 && (
                   <span className="hidden h-9 w-px bg-[rgba(245,240,230,0.12)] sm:block" />
@@ -186,7 +178,7 @@ export function Hero() {
                     {"static" in s ? (
                       s.static
                     ) : (
-                      <CountUp end={s.end!} suffix={s.suffix} />
+                      <CountUp end={i === 0 ? 4 : 3} suffix={i === 0 ? "" : "+"} />
                     )}
                   </div>
                   <div className="mt-1.5 font-body text-[11px] uppercase tracking-[0.05em] text-[rgba(245,240,230,0.42)]">
