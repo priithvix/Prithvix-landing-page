@@ -77,5 +77,52 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Could not save registration." }, { status: 500 });
   }
 
+  // --- NEW: Geocode & Save to globe_markers ---
+  try {
+    const cityName = district.trim().toLowerCase();
+    
+    // Check if city exists
+    const { data: existingMarker } = await supabase
+      .from("globe_markers")
+      .select("id, count")
+      .eq("city_name", cityName)
+      .single();
+
+    if (existingMarker) {
+      // Increment count
+      await supabase
+        .from("globe_markers")
+        .update({ count: (existingMarker.count || 1) + 1 })
+        .eq("id", existingMarker.id);
+    } else {
+      // Geocode
+      const geoRes = await fetch(
+        `https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(
+          district
+        )}&country=India&format=json&limit=1`,
+        { headers: { "User-Agent": "PrithviX-Landing-Page/1.0" } }
+      );
+      
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        if (geoData && geoData.length > 0) {
+          const lat = parseFloat(geoData[0].lat);
+          const lng = parseFloat(geoData[0].lon);
+          
+          await supabase.from("globe_markers").insert({
+            city_name: cityName,
+            lat,
+            lng,
+            count: 1
+          });
+        }
+      }
+    }
+  } catch (geoError) {
+    console.error("[register] geocoding/marker failed:", geoError);
+    // We do NOT fail the registration response if geocoding fails.
+  }
+  // ---------------------------------------------
+
   return NextResponse.json({ ok: true, stored: true });
 }

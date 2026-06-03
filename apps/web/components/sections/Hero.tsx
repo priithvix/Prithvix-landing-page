@@ -31,12 +31,24 @@ const INDIAN_MARKERS: GlobeMarker[] = [
 
 export function Hero({ dict, lang }: { dict: any; lang?: string }) {
   const [showScroll, setShowScroll] = useState(true);
+  const [markers, setMarkers] = useState<GlobeMarker[]>(INDIAN_MARKERS);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 100);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/markers")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.markers && data.markers.length > 0) {
+          setMarkers(data.markers);
+        }
+      })
+      .catch((err) => console.error("Failed to load globe markers:", err));
   }, []);
 
   // Per-line word offset so each word gets a global stagger delay without
@@ -202,7 +214,7 @@ export function Hero({ dict, lang }: { dict: any; lang?: string }) {
         >
           <Globe3D
             className="h-full w-full opacity-80"
-            markers={INDIAN_MARKERS}
+            markers={markers}
             config={{
               globeColor: "#1b3a2d",
               atmosphereColor: "#0e1b12",
