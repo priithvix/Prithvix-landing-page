@@ -208,7 +208,7 @@ export function Hero({ dict, lang }: { dict: any; lang?: string }) {
               atmosphereColor: "#0e1b12",
               atmosphereIntensity: 0.5,
               bumpScale: 2,
-              autoRotateSpeed: 0.08,
+              autoRotateSpeed: 0.05,
               markerSize: 0.05,
               showAtmosphere: false,
               initialRotation: { x: 0, y: 0 },

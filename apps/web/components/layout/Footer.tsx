@@ -164,6 +164,11 @@ export function Footer({ dict }: { dict?: any }) {
 
           {/* Contact */}
           <Column heading={d.contact.heading}>
+            <address className="font-body text-[14px] text-left text-[rgba(245,240,230,0.6)] not-italic leading-[1.6] mb-2">
+              Incubation Centre,<br />
+              Nirma University, SG Highway,<br />
+              Ahmedabad, Gujarat 382481
+            </address>
             <a className={linkClass} href={`mailto:${SITE.email}`}>
               {SITE.email}
             </a>
