@@ -10,7 +10,7 @@ export const SITE = {
   title:
     "PrithviX - Machinery Rental, Labour & ERP for Indian Farmers & Dealers",
   description:
-    "PrithviX connects India's agri ecosystem - rent farm equipment, hire labour, manage dealer credit and inventory. Launching in Gujarat. Register free today.",
+    "PrithviX connects India's agri ecosystem - rent farm equipment, hire labour, manage dealer credit and inventory. Launching in India. Register free today.",
   keywords: [
     "agri tech India",
     "farm machinery rental Gujarat",
