@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { SITE, waLink } from "@/lib/site";
 import { scrollToAnchor } from "@/lib/scroll";
+import Link from "next/link";
 
 /* lucide removed brand icons in recent versions - use inline brand SVGs */
 function WhatsAppGlyph() {
@@ -125,6 +126,7 @@ export function Footer({ dict }: { dict?: any }) {
                 aria-label="WhatsApp"
                 className={linkClass}
               >
+                <span className="sr-only">WhatsApp</span>
                 <WhatsAppGlyph />
               </a>
               <a
@@ -132,6 +134,7 @@ export function Footer({ dict }: { dict?: any }) {
                 aria-label="Instagram"
                 className={linkClass}
               >
+                <span className="sr-only">Instagram</span>
                 <InstagramGlyph />
               </a>
               <a
@@ -139,6 +142,7 @@ export function Footer({ dict }: { dict?: any }) {
                 aria-label="LinkedIn"
                 className={linkClass}
               >
+                <span className="sr-only">LinkedIn</span>
                 <LinkedInGlyph />
               </a>
             </div>
@@ -180,12 +184,12 @@ export function Footer({ dict }: { dict?: any }) {
             >
               {d.contact.whatsappUs}
             </a>
-            <a className={linkClass} href="/privacy">
+            <Link className={linkClass} href="/privacy">
               {d.contact.privacyPolicy}
-            </a>
-            <a className={linkClass} href="/terms">
+            </Link>
+            <Link className={linkClass} href="/terms">
               {d.contact.termsOfUse}
-            </a>
+            </Link>
           </Column>
         </div>
 

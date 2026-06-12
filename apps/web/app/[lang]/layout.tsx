@@ -52,12 +52,13 @@ export async function generateMetadata(
     keywords: [...SITE.keywords],
     authors: [{ name: SITE.name }],
     alternates: { 
-      canonical: `/${lang}`,
+      canonical: `${SITE.url}/${lang}`,
       languages: {
-        'en': '/en',
-        'hi': '/hi',
-        'gu': '/gu',
-        'pa': '/pa',
+        'x-default': SITE.url,
+        'en': `${SITE.url}/en`,
+        'hi': `${SITE.url}/hi`,
+        'gu': `${SITE.url}/gu`,
+        'pa': `${SITE.url}/pa`,
       }
     },
     robots: { index: true, follow: true },
